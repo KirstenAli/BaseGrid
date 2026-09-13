@@ -1,10 +1,10 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { ALLOCATABLE, HOST, PLANS, fitsCapacity, remainingCapacity } from "../lib/plans.mjs";
+import { ALLOCATABLE, HOST, PLANS, fitsCapacity, planById, remainingCapacity } from "../lib/plans.mjs";
 
-test("four Pro tenants fit inside allocatable host capacity", () => {
-  const pro = PLANS.find((plan) => plan.id === "pro");
-  const total = { seats: 4, vcpus: pro.vcpus * 4, memoryGb: pro.memoryGb * 4, storageGb: pro.storageGb * 4 };
+test("four Grid L tenants fit inside allocatable host capacity", () => {
+  const largest = planById("grid-l");
+  const total = { seats: 4, vcpus: largest.vcpus * 4, memoryGb: largest.memoryGb * 4, storageGb: largest.storageGb * 4 };
   assert.deepEqual(total, { seats: HOST.seats, vcpus: ALLOCATABLE.threads, memoryGb: ALLOCATABLE.memoryGb, storageGb: ALLOCATABLE.storageGb });
 });
 
@@ -18,8 +18,14 @@ test("remaining capacity reports each physical constraint", () => {
   assert.deepEqual(remaining, { seats: 3, vcpus: 40, memoryGb: 18, storageGb: 1200 });
 });
 
-test("plans increase monotonically without exceeding a quarter-host share", () => {
-  assert.deepEqual(PLANS.map((plan) => plan.vcpus), [4, 8, 12]);
-  assert.ok(PLANS.every((plan) => plan.memoryGb <= ALLOCATABLE.memoryGb / HOST.seats));
-  assert.ok(PLANS.every((plan) => plan.storageGb <= ALLOCATABLE.storageGb / HOST.seats));
+test("tiers increase monotonically across key OpenStack limits", () => {
+  for (const key of ["vcpus", "instances", "volumes", "networks", "ports", "floatingIps", "securityGroupRules", "loadBalancers"]) {
+    assert.deepEqual(PLANS.map((plan) => plan[key]), [...PLANS.map((plan) => plan[key])].sort((a, b) => a - b));
+  }
+});
+
+test("legacy package ids resolve to their replacement quota tiers", () => {
+  assert.equal(planById("launch").id, "grid-s");
+  assert.equal(planById("scale").id, "grid-m");
+  assert.equal(planById("pro").id, "grid-l");
 });

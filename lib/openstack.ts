@@ -1,6 +1,7 @@
 import { env } from "cloudflare:workers";
 
-type ProvisionInput = { email: string; password: string; name: string; organisation: string; quota: { vcpus: number; memoryGb: number; storageGb: number } };
+type ProjectQuota = Record<string, number>;
+type ProvisionInput = { email: string; password: string; name: string; organisation: string; quota: ProjectQuota };
 type OpenStackResult = { userId: string; projectId: string; mode: "mock" | "live" };
 type Runtime = { OPENSTACK_MODE?: string; OPENSTACK_API_URL?: string; OPENSTACK_API_TOKEN?: string; OPENSTACK_DASHBOARD_URL?: string };
 
@@ -13,7 +14,7 @@ export async function provisionUser(input: ProvisionInput): Promise<OpenStackRes
   return { userId: response.userId, projectId: response.projectId, mode: "live" };
 }
 
-export async function updateQuota(projectId: string, quota: ProvisionInput["quota"]) {
+export async function updateQuota(projectId: string, quota: ProjectQuota) {
   if (runtime().OPENSTACK_MODE !== "live") return { mode: "mock" as const };
   await callApi(`/v1/tenants/${projectId}/quota`, "PATCH", { quota });
   return { mode: "live" as const };

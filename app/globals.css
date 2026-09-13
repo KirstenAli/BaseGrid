@@ -122,14 +122,14 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .capacity-note span { align-items: center; border: 1px solid var(--accent); border-radius: 50%; color: var(--accent); display: flex; flex: 0 0 17px; height: 17px; justify-content: center; }
 
 .plan-grid { display: grid; gap: 10px; grid-template-columns: repeat(3, 1fr); }
-.plan-card { background: #090e10; border: 1px solid var(--line); min-height: 460px; padding: 30px; position: relative; }
+.plan-card { background: #090e10; border: 1px solid var(--line); min-height: 550px; padding: 30px; position: relative; }
 .plan-card--featured { background: linear-gradient(180deg, rgba(87,215,198,.09), rgba(87,215,198,.015)); border-color: rgba(87, 215, 198, .32); }
 .plan-card__eyebrow { color: #69777a; font-size: 9px; letter-spacing: .13em; text-transform: uppercase; }
 .badge { background: rgba(87, 215, 198, .11); color: var(--accent); float: right; font-size: 8px; letter-spacing: .1em; padding: 7px 9px; }
 .plan-card h3 { font-size: 36px; font-weight: 450; letter-spacing: -.04em; margin: 54px 0 10px; }
 .plan-card > p { color: #667478; font-size: 11px; }
-.plan-card dl { border-block: 1px solid var(--line); margin: 42px 0 32px; padding: 6px 0; }
-.plan-card dl div { align-items: center; display: flex; justify-content: space-between; padding: 13px 0; }
+.plan-card dl { border-block: 1px solid var(--line); margin: 30px 0 32px; padding: 6px 0; }
+.plan-card dl div { align-items: center; display: flex; justify-content: space-between; padding: 9px 0; }
 .plan-card dt { color: #748184; font-size: 10px; }
 .plan-card dd { font-family: ui-monospace, monospace; font-size: 12px; margin: 0; }
 .plan-card .button { bottom: 30px; left: 30px; position: absolute; right: 30px; }
@@ -184,6 +184,19 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .register-plan > div small { color: var(--accent); font-size: 7px; letter-spacing: .08em; }
 .register-plan p { color: #667477; font-size: 8px; line-height: 1.5; margin: 28px 0 0; }
 .register-plan > i { color: var(--accent); font-size: 13px; font-style: normal; position: absolute; right: 14px; top: 14px; }
+.selected-quota { background: #090f11; border: 1px solid var(--line); margin-top: 10px; padding: 18px; }
+.selected-quota > div:first-child { align-items: center; display: flex; justify-content: space-between; margin-bottom: 16px; }
+.selected-quota > div:first-child span { color: var(--accent); font-size: 7px; font-weight: 700; letter-spacing: .12em; }
+.selected-quota > div:first-child small { color: #566367; font-size: 7px; }
+.quota-matrix { border-left: 1px solid var(--line); border-top: 1px solid var(--line); display: grid; grid-template-columns: repeat(4, 1fr); margin: 20px 0; }
+.quota-matrix section { border-bottom: 1px solid var(--line); border-right: 1px solid var(--line); padding: 15px; }
+.quota-matrix h3 { color: #93a0a3; font-size: 8px; font-weight: 700; letter-spacing: .08em; margin: 0 0 12px; text-transform: uppercase; }
+.quota-matrix dl { margin: 0; }
+.quota-matrix dl div { display: flex; justify-content: space-between; padding: 5px 0; }
+.quota-matrix dt, .quota-matrix dd { color: #5f6d70; font-size: 7px; margin: 0; }
+.quota-matrix dd { color: #a1adaf; font-family: ui-monospace, monospace; }
+.quota-matrix--compact { margin: 0; }
+.quota-matrix--compact section { padding: 12px; }
 .checkbox { align-items: start; color: #7a878a; display: flex; font-size: 10px; gap: 10px; line-height: 1.5; margin: 28px 0 16px; }
 .checkbox input { accent-color: var(--accent); margin-top: 2px; }
 .registration-submit { width: 100%; }
@@ -290,7 +303,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .section-heading { grid-template-columns: 40px 1fr; }
   .section-heading > p { grid-column: 2; margin-top: 0; }
   .plan-grid { grid-template-columns: 1fr; }
-  .plan-card { min-height: 430px; }
+  .plan-card { min-height: 540px; }
   .workflow-card { grid-template-columns: 1fr; }
   .auth-shell { grid-template-columns: 1fr; }
   .auth-aside { min-height: 500px; }
@@ -329,6 +342,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .auth-aside { min-height: 440px; padding: 70px 24px 40px; }
   .auth-form-wrap { padding: 42px 20px 70px; }
   .field-grid, .register-plans { grid-template-columns: 1fr; }
+  .quota-matrix { grid-template-columns: 1fr 1fr; }
+  .selected-quota > div:first-child { align-items: flex-start; flex-direction: column; gap: 6px; }
   .register-plan { min-height: 105px; }
   .dashboard-header { height: 66px; padding-inline: 14px; }
   .environment-pill { display: none; }
@@ -336,6 +351,10 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .dashboard-title { align-items: flex-start; flex-direction: column; gap: 24px; }
   .usage-grid, .quota-options { grid-template-columns: 1fr; }
   .billing-panel { align-items: flex-start; flex-direction: column; gap: 25px; }
+}
+
+@media (max-width: 440px) {
+  .quota-matrix { grid-template-columns: 1fr; }
 }
 
 @media (prefers-reduced-motion: reduce) {

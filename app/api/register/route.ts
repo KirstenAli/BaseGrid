@@ -11,7 +11,7 @@ export async function POST(request: Request) {
     if (error) return reply({ error }, 400);
     if (await findUser(payload.email)) return reply({ error: "An account already exists for this email." }, 409);
     const plan = planById(payload.planId)!;
-    if (!fitsCapacity(summarise(await getUsage()), plan)) return reply({ error: "That package no longer fits the available host capacity." }, 409);
+    if (!fitsCapacity(summarise(await getUsage()), plan)) return reply({ error: "That quota tier no longer fits the available host capacity." }, 409);
     const openstack = await provisionUser({ email: payload.email, password: payload.password, name: `${payload.firstName} ${payload.lastName}`, organisation: payload.organisation, quota: quotaOf(plan) });
     const user = await createAccount({ id: crypto.randomUUID(), email: payload.email, first_name: payload.firstName, last_name: payload.lastName, organisation: payload.organisation, plan_id: plan.id, openstack_user_id: openstack.userId, openstack_project_id: openstack.projectId });
     return reply({ user, mode: openstack.mode }, 201);
@@ -22,7 +22,10 @@ export async function POST(request: Request) {
 }
 
 const reply = (body: unknown, status: number) => Response.json(body, { status });
-const quotaOf = (plan: { vcpus: number; memoryGb: number; storageGb: number }) => ({ vcpus: plan.vcpus, memoryGb: plan.memoryGb, storageGb: plan.storageGb });
+function quotaOf(plan: NonNullable<ReturnType<typeof planById>>) {
+  const { id: _id, name: _name, profile: _profile, eyebrow: _eyebrow, highlight: _highlight, ...quota } = plan;
+  return quota;
+}
 
 function clean(payload: Payload) {
   return { firstName: payload.firstName?.trim() || "", lastName: payload.lastName?.trim() || "", organisation: payload.organisation?.trim() || "", email: payload.email?.trim().toLowerCase() || "", password: payload.password || "", planId: payload.planId || "" };
@@ -32,7 +35,7 @@ function validate(payload: ReturnType<typeof clean>) {
   if (!payload.firstName || !payload.lastName || !payload.email) return "Name and email are required.";
   if (!/^\S+@\S+\.\S+$/.test(payload.email)) return "Enter a valid email address.";
   if (payload.password.length < 10) return "Use at least 10 characters for your OpenStack password.";
-  if (!planById(payload.planId)) return "Select a valid quota package.";
+  if (!planById(payload.planId)) return "Select a valid project quota tier.";
   return "";
 }
 

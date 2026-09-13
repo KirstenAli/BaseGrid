@@ -27,7 +27,7 @@ export default function Home() {
         <div className="capacity-layout"><HostDiagram /><CapacityNotes /></div>
       </div></section>
       <section className="section shell" id="plans">
-        <SectionHeading index="03" eyebrow="Founding packages" title="Choose the quota your work needs." copy="Start conservatively, then move between packages from your account. Allocation changes are capacity checked before they reach OpenStack." />
+        <SectionHeading index="03" eyebrow="Project quota tiers" title="Choose limits that match your work." copy="Each tier covers compute, storage, networking, security and delivery resources. Change tier later; every update is capacity checked before it reaches OpenStack." />
         <PlanCards />
       </section>
       <section className="section shell"><div className="workflow-card">
@@ -53,7 +53,7 @@ function Meter({ label, value, width }: { label: string; value: string; width: s
 }
 
 function HostDiagram() {
-  return <div className="host-diagram"><div className="host-diagram__head"><span>PHYSICAL HOST · BG-01</span><i>100%</i></div><div className="host-diagram__body"><div className="resource-block resource-block--system"><span>HOST + CONTROL PLANE</span><strong>RESERVED</strong><small>8 GB RAM · 16 threads · 500 GB</small></div><div className="tenant-grid"><div>TENANT 01<span>UP TO PRO</span></div><div>TENANT 02<span>UP TO PRO</span></div><div>TENANT 03<span>UP TO PRO</span></div><div>TENANT 04<span>UP TO PRO</span></div></div></div><div className="host-diagram__legend"><span><i className="legend-dot legend-dot--system" /> System reserve</span><span><i className="legend-dot" /> Allocatable</span></div></div>;
+  return <div className="host-diagram"><div className="host-diagram__head"><span>PHYSICAL HOST · BG-01</span><i>100%</i></div><div className="host-diagram__body"><div className="resource-block resource-block--system"><span>HOST + CONTROL PLANE</span><strong>RESERVED</strong><small>8 GB RAM · 16 threads · 500 GB</small></div><div className="tenant-grid"><div>TENANT 01<span>UP TO GRID L</span></div><div>TENANT 02<span>UP TO GRID L</span></div><div>TENANT 03<span>UP TO GRID L</span></div><div>TENANT 04<span>UP TO GRID L</span></div></div></div><div className="host-diagram__legend"><span><i className="legend-dot legend-dot--system" /> System reserve</span><span><i className="legend-dot" /> Allocatable</span></div></div>;
 }
 
 function CapacityNotes() {

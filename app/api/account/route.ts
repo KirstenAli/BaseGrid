@@ -13,13 +13,18 @@ export async function PATCH(request: Request) {
     const { email, planId } = await request.json() as { email?: string; planId?: string };
     const user = email ? await findUser(email.toLowerCase()) : null;
     const plan = planById(planId || "");
-    if (!user || !plan) return Response.json({ error: "Account or package not found." }, { status: 404 });
-    if (!fitsCapacity(summarise(await getUsage(user.id)), plan)) return Response.json({ error: "That package exceeds current capacity." }, { status: 409 });
-    await updateQuota(user.openstack_project_id, { vcpus: plan.vcpus, memoryGb: plan.memoryGb, storageGb: plan.storageGb });
+    if (!user || !plan) return Response.json({ error: "Account or quota tier not found." }, { status: 404 });
+    if (!fitsCapacity(summarise(await getUsage(user.id)), plan)) return Response.json({ error: "That quota tier exceeds current capacity." }, { status: 409 });
+    await updateQuota(user.openstack_project_id, quotaOf(plan));
     return Response.json(await savePlanChange(user, plan.id));
   } catch {
     return Response.json({ error: "The quota change could not be applied." }, { status: 500 });
   }
+}
+
+function quotaOf(plan: NonNullable<ReturnType<typeof planById>>) {
+  const { id: _id, name: _name, profile: _profile, eyebrow: _eyebrow, highlight: _highlight, ...quota } = plan;
+  return quota;
 }
 
 function summarise(rows: { plan_id: string }[]) {
