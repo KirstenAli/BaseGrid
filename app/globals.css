@@ -78,7 +78,9 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .meter b { background: var(--accent); display: block; height: 100%; }
 .console__foot { background: rgba(87, 215, 198, .055); border-top: 1px solid rgba(87, 215, 198, .14); color: #667477; padding: 17px 20px; }
 .console__foot span:last-child { color: #8ac2ba; }
-.proof-bar { align-items: center; border-block: 1px solid var(--line); color: #647175; display: flex; font-size: 9px; font-weight: 700; justify-content: space-around; letter-spacing: .17em; min-height: 66px; }
+.proof-bar { border-block: 1px solid var(--line); color: #647175; display: grid; font-size: 9px; font-weight: 700; grid-template-columns: repeat(4, 1fr); letter-spacing: .17em; }
+.proof-bar span { align-items: center; border-right: 1px solid var(--line); display: flex; justify-content: center; min-height: 66px; padding: 0 18px; text-align: center; }
+.proof-bar span:last-child { border-right: 0; }
 
 .section { padding-block: 126px; }
 .section--tint { background: #090e10; border-block: 1px solid rgba(255, 255, 255, .045); }
@@ -86,14 +88,14 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .section-heading > span { color: #536064; font-family: ui-monospace, monospace; font-size: 10px; padding-top: 4px; }
 .section-heading h2 { font-size: clamp(36px, 4vw, 54px); font-weight: 430; letter-spacing: -.045em; line-height: 1.06; margin: 18px 0 0; max-width: 610px; }
 .section-heading > p { color: #78868a; font-size: 14px; line-height: 1.75; margin: 30px 0 0; }
-.service-grid { border-left: 1px solid var(--line); border-top: 1px solid var(--line); display: grid; grid-template-columns: repeat(4, 1fr); }
-.service-card { border-bottom: 1px solid var(--line); border-right: 1px solid var(--line); min-height: 264px; padding: 24px; position: relative; transition: .25s ease; }
-.service-card:hover { background: #0c1315; }
+.service-grid { display: grid; gap: 12px; grid-template-columns: repeat(3, 1fr); }
+.service-card { background: #090e10; border: 1px solid var(--line); min-height: 288px; padding: 30px; position: relative; transition: .25s ease; }
+.service-card:hover { background: #0d1416; border-color: var(--line-strong); transform: translateY(-2px); }
 .service-card__index { color: #424d50; font-family: ui-monospace, monospace; font-size: 9px; }
 .service-card__code { color: var(--accent); float: right; font-family: ui-monospace, monospace; font-size: 8px; letter-spacing: .12em; }
-.service-card h3 { font-size: 18px; font-weight: 550; letter-spacing: -.02em; margin: 72px 0 14px; }
-.service-card p { color: #6e7b7e; font-size: 12px; line-height: 1.65; margin: 0; }
-.service-card__arrow { bottom: 20px; color: #4b5659; font-size: 15px; position: absolute; right: 22px; }
+.service-card h3 { font-size: 20px; font-weight: 550; letter-spacing: -.025em; margin: 78px 0 16px; }
+.service-card p { color: #718084; font-size: 12px; line-height: 1.75; margin: 0; max-width: 31ch; }
+.service-card__arrow { bottom: 26px; color: #4b5659; font-size: 15px; position: absolute; right: 28px; }
 .service-card:hover .service-card__arrow { color: var(--accent); }
 
 .capacity-layout { display: grid; gap: 80px; grid-template-columns: 1.35fr .65fr; }
@@ -320,15 +322,19 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .hero { min-height: auto; padding-block: 70px; }
   .hero h1 { font-size: 48px; }
   .hero__actions { align-items: stretch; flex-direction: column; }
-  .proof-bar { align-items: flex-start; flex-direction: column; gap: 12px; padding: 18px 24px; }
+  .proof-bar { grid-template-columns: repeat(2, 1fr); }
+  .proof-bar span { border-bottom: 1px solid var(--line); min-height: 58px; padding: 0 10px; }
+  .proof-bar span:nth-child(2n) { border-right: 0; }
+  .proof-bar span:nth-child(n + 3) { border-bottom: 0; }
   .console__metrics { grid-template-columns: 1fr; }
   .console__orb { height: 200px; }
   .section { padding-block: 82px; }
   .section-heading { gap: 14px; grid-template-columns: 1fr; }
   .section-heading > span { display: none; }
   .section-heading > p { grid-column: 1; }
-  .service-grid { grid-template-columns: 1fr; }
-  .service-card { min-height: 230px; }
+  .service-grid { gap: 10px; grid-template-columns: 1fr; }
+  .service-card { min-height: 248px; padding: 26px; }
+  .service-card h3 { margin-top: 62px; }
   .host-diagram__body { grid-template-columns: 1fr; }
   .resource-block { min-height: 140px; }
   .tenant-grid { min-height: 330px; }
