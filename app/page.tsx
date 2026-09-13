@@ -45,7 +45,7 @@ function SectionHeading({ index, eyebrow, title, copy }: { index: string; eyebro
 }
 
 function CapacityConsole() {
-  return <div className="console"><div className="console__top"><span>BASEGRID / HOST-01</span><span className="console__live"><i /> OPERATIONAL</span></div><div className="console__orb"><div /><span>64</span><small>CPU THREADS</small></div><div className="console__metrics"><Meter label="Memory" value="32 GB" width="76%" /><Meter label="Storage" value="2.0 TB" width="64%" /><Meter label="Tenant slots" value="04" width="50%" /></div><div className="console__foot"><span>OPENSTACK</span><span>CONTROL PLANE READY</span></div></div>;
+  return <div className="console"><div className="console__top"><span>BASEGRID / HOST-01</span><span className="console__live"><i /> OPERATIONAL</span></div><div className="console__orb"><div className="console__orb-ring" /><div className="console__orb-value"><span>64</span><small>CPU THREADS</small></div></div><div className="console__metrics"><Meter label="Memory" value="32 GB" width="76%" /><Meter label="Storage" value="2.0 TB" width="64%" /><Meter label="Tenant slots" value="04" width="50%" /></div><div className="console__foot"><span>OPENSTACK</span><span>CONTROL PLANE READY</span></div></div>;
 }
 
 function Meter({ label, value, width }: { label: string; value: string; width: string }) {

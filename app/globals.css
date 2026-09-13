@@ -65,11 +65,12 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .console__live { color: var(--accent); }
 .console__live i { animation: pulse 2s infinite; background: var(--accent); border-radius: 50%; display: inline-block; height: 5px; margin-right: 7px; width: 5px; }
 .console__orb { align-items: center; display: flex; flex-direction: column; height: 230px; justify-content: center; position: relative; }
-.console__orb > div { background: radial-gradient(circle, rgba(87, 215, 198, .2) 0, transparent 65%); border: 1px solid rgba(87, 215, 198, .26); border-radius: 50%; height: 154px; position: absolute; width: 154px; }
-.console__orb > div::before, .console__orb > div::after { border: 1px solid rgba(87, 215, 198, .12); border-radius: 50%; content: ""; inset: 13px; position: absolute; }
-.console__orb > div::after { inset: 28px; }
-.console__orb span { font-size: 48px; font-weight: 300; letter-spacing: -.06em; position: relative; }
-.console__orb small { color: var(--accent); font-size: 8px; letter-spacing: .18em; margin-top: 4px; position: relative; }
+.console__orb-ring { background: radial-gradient(circle, rgba(87, 215, 198, .2) 0, transparent 65%); border: 1px solid rgba(87, 215, 198, .26); border-radius: 50%; height: 166px; position: absolute; width: 166px; }
+.console__orb-ring::before, .console__orb-ring::after { border: 1px solid rgba(87, 215, 198, .12); border-radius: 50%; content: ""; inset: 13px; position: absolute; }
+.console__orb-ring::after { inset: 29px; }
+.console__orb-value { align-items: center; display: flex; flex-direction: column; height: 166px; justify-content: center; position: relative; width: 166px; z-index: 1; }
+.console__orb-value span { font-size: 48px; font-weight: 300; letter-spacing: -.06em; line-height: .9; }
+.console__orb-value small { color: var(--accent); font-size: 8px; letter-spacing: .16em; margin-top: 12px; white-space: nowrap; }
 .console__metrics { display: grid; gap: 18px; grid-template-columns: repeat(3, 1fr); padding: 0 24px 26px; position: relative; }
 .meter > div { display: flex; justify-content: space-between; }
 .meter span { color: #657276; font-size: 9px; text-transform: uppercase; }
