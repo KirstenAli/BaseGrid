@@ -199,8 +199,12 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .quota-matrix dt, .quota-matrix dd { color: #879397; font-size: 10px; font-weight: 500; line-height: 1.35; margin: 0; }
 .quota-matrix dd { color: #c0c9cb; font-family: ui-monospace, monospace; font-weight: 600; white-space: nowrap; }
 .quota-matrix--compact { margin: 0; }
-.selected-quota .quota-matrix--compact { animation: quota-refresh .32s ease-out; }
 .quota-matrix--compact section { padding: 14px; }
+.quota-value { display: grid; isolation: isolate; justify-items: end; min-width: 48px; position: relative; text-align: right; }
+.quota-value span { grid-area: 1 / 1; }
+.quota-value--changing::before { animation: quota-highlight .46s ease-out var(--quota-delay) both; background: rgba(87, 215, 198, .17); border-radius: 2px; content: ""; inset: -3px -5px; position: absolute; z-index: -1; }
+.quota-value--changing .quota-value__previous { animation: quota-value-out .18s ease-in var(--quota-delay) both; }
+.quota-value--changing .quota-value__current { animation: quota-value-in .24s ease-out calc(var(--quota-delay) + 45ms) both; }
 .checkbox { align-items: start; color: #879396; display: flex; font-size: 11px; gap: 10px; line-height: 1.55; margin: 28px 0 16px; }
 .checkbox input { accent-color: var(--accent); margin-top: 2px; }
 .registration-submit { width: 100%; }
@@ -297,7 +301,9 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 @keyframes pulse { 50% { box-shadow: 0 0 0 5px rgba(87,215,198,.08); } }
 @keyframes spin { to { transform: rotate(360deg); } }
-@keyframes quota-refresh { from { opacity: .35; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes quota-highlight { from { opacity: 1; } to { opacity: 0; } }
+@keyframes quota-value-out { to { opacity: 0; transform: translateY(-3px); } }
+@keyframes quota-value-in { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: translateY(0); } }
 
 @media (max-width: 1100px) {
   .hero { gap: 46px; grid-template-columns: 1fr; justify-items: center; padding-top: 90px; text-align: center; }
@@ -373,5 +379,6 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .001ms !important; }
-  .console__live i, .selected-quota .quota-matrix--compact, .state-spinner { animation: none; }
+  .console__live i, .quota-value--changing::before, .quota-value--changing .quota-value__current, .state-spinner { animation: none; }
+  .quota-value--changing .quota-value__previous { display: none; }
 }
